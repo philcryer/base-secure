@@ -1,8 +1,0 @@
----
-- roles:
-    - dev-sec.ssh-hardening
-  vars:
-    ssh_custom_options:
-      - "Include /etc/ssh/ssh_config.d/*"
-    sshd_custom_options:
-      - "AcceptEnv LANG"

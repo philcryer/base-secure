@@ -1,0 +1,6 @@
+---
+#- name: Full system update - reboot if needed
+- hosts: all
+  become: yes
+  roles:
+    - thorian93.upgrade

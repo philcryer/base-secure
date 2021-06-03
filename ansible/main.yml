@@ -1,17 +1,10 @@
 ---
 - hosts: all
-  connection: local
-  gather_facts: true
-
-  vars_files:
-      - "group_vars/all.yml"
-      - "group_vars/{{ ansible_system|lower }}.yml"
-
-  tasks:
-    - include_tasks: "tasks/main.yml"
-      tags: ['tasks']
-
-      #  roles:
-      #- role: geerlingguy.homebrew
-      #when: ansible_distribution == 'MacOSX'
-      #tags: ['osx']
+  vars:
+    ansible_become: yes
+    ansible_become_method: sudo
+  collections:
+    - devsec.hardening
+  roles:
+    - devsec.hardening.os_hardening
+    - devsec.hardening.ssh_hardening

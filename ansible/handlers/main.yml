@@ -1,6 +1,0 @@
----
-- name: restart sshd
-  service:
-    name: sshd
-    state: restart
-  become: yes

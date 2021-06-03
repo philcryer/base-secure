@@ -30,10 +30,10 @@ function msg_notification () {
 kick-off(){
     clear
     echo -e "\x1B[01;31m"
-    echo "     |            |    |             |               |"
-    echo "  |        |              |        |             |"
+    echo "    |         |     |                     |    |             |               |"
+    echo "  |        |       |    |       |                 |        |             |"
     cat src/logo-ascii.txt
-    msg_status "ohai, let's basejump!"
+    msg_status "base secure?"
     sudo -v
 }
 
@@ -41,8 +41,6 @@ os-check(){
     msg_notification "checking operating system"
         if [ "$distro" == "Linux" ]; then
             msg_good "$distro is supported, continuing"
-#        elif [ "$distro" == "MacOS" ]; then
-#            msg_good "$distro is supported, continuing"
         fi
 }
 
@@ -62,11 +60,13 @@ software-check-pip(){
         if ! type "$cli" > /dev/null 2>&1; then
             msg_error "$cli is not installed - attempting to install"
             curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-            sudo python get-pip.py
+            #sudo python get-pip.py
+            python get-pip.py
             rm get-pip.py
         else
             msg_notification "checking for latest version of python pip3"
-            sudo -H pip3 install --upgrade pip
+            #sudo -H pip3 install --upgrade pip
+            pip3 install --upgrade pip
         fi
   	done
     msg_good "python pip is installed"
@@ -83,8 +83,10 @@ install-ansible(){
 run-ansible(){
     msg_status "handing off to ansible!"
     cd ansible
-    ansible-galaxy install -r requirements.yml
-    ansible-playbook main.yml -i inventory
+    ansible-galaxy collection install devsec.hardening 
+    ansible-galaxy role install thorian93.upgrade
+    ansible-playbook -i inventory -c netconf --become-method sudo --become-user root main.yml
+    ansible-playbook -i inventory -c netconf --become-method sudo --become-user root update.yml
 }
 
 main(){

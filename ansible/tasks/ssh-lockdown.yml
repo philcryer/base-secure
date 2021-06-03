@@ -1,0 +1,10 @@
+---
+- name: Disallow root SSH access
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+    #validate: 'sudo sshd -t %s'
+    #notify: restart sshd
+  become: true

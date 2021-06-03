@@ -1,0 +1,33 @@
+---
+#gitconfig_name: 
+#gitconfig_email: 
+#
+#code_directory: ~/devel
+
+downloads: ~/.ansible/tmp/
+
+sudo_user: "{{ ansible_user_id }}"
+
+#nerdfont_url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/SourceCodePro.zip
+
+#dotfiles_giturl: https://github.com/philcryer/dotfiles.git
+
+#dotfiles:
+#  - .config
+#  - .aliases
+#  - .bash_profile
+#  - .curlrc
+#  - .editorconfig
+#  - .exports
+#  - .gitignore
+#  - .hushlogin
+#  - .inputrc
+#  - .screenrc
+#  - .tmux.conf
+#  - .wgetrc
+#  - .ssh/config-example
+
+#pip_packages:
+#  - tabulate
+#  - colored
+#  - termcolor

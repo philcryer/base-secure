@@ -1,0 +1,17 @@
+---
+- hosts: all
+  connection: local
+  gather_facts: true
+
+  vars_files:
+      - "group_vars/all.yml"
+      - "group_vars/{{ ansible_system|lower }}.yml"
+
+  tasks:
+    - include_tasks: "tasks/main.yml"
+      tags: ['tasks']
+
+      #  roles:
+      #- role: geerlingguy.homebrew
+      #when: ansible_distribution == 'MacOSX'
+      #tags: ['osx']

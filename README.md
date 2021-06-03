@@ -22,6 +22,12 @@ git clone https://github.com/philcryer/base-secure.git
 cd base-secure
 ```
 
+Run it:
+
+```
+./base-secure
+```
+
 ## TODO
 
 More details here

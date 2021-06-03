@@ -1,0 +1,12 @@
+---
+- hosts: all
+  tasks:
+  - name: Removing Python libraries
+    pip:
+      name: ansible ansible-core PyYAML PySocks MarkupSafe Jinja2
+      state: absent
+
+  - name: Removing Ansible downloads
+    file:
+      path: ${HOME}/.ansible
+      state: absent

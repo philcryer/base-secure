@@ -60,12 +60,10 @@ software-check-pip(){
         if ! type "$cli" > /dev/null 2>&1; then
             msg_error "$cli is not installed - attempting to install"
             curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-            #sudo python get-pip.py
             python get-pip.py
             rm get-pip.py
         else
             msg_notification "checking for latest version of python pip3"
-            #sudo -H pip3 install --upgrade pip
             pip3 install --upgrade pip
         fi
   	done
@@ -75,8 +73,9 @@ software-check-pip(){
 install-ansible(){
     if ! type "ansible" > /dev/null 2>&1; then
         msg_notification "ansible not installed, enter sudo password to install"
-        sudo -H pip3 install ansible
+        pip3 install ansible
     fi
+    PATH=${HOME}/.local/bin:$PATH
     msg_good "ansible is installed"
 }
 

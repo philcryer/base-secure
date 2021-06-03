@@ -6,6 +6,8 @@ Base-secure uses [Ansible](https://www.ansible.com) to automate the setup of new
 
 __NOTICE__ if you don't have Ansible installed, base-secure will do that first via Pip, automatically!
 
+All pip3 installed packages (including Ansible) installed to user installation
+
 ## Requirements
 
 * Linux

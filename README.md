@@ -41,7 +41,7 @@ Run it
 
 ## Cleanup
 
-As with any server, you shouldn't have extranious things installed, so this script cleans up after itself and removes all downloaded Ansible files and uninstalls all pip packages (yep, even pip itself, if the script installed it) To do this, just run `base-secure` with the clean arguement:
+As with any server, you shouldn't have extranious things installed, so this script cleans up after itself and removes all downloaded Ansible files and uninstalls all pip packages (yep, even pip itself, if the script installed it) To do this, just run `base-secure` with the clean argument:
 
 ```
 ./base-secure clean

@@ -44,6 +44,73 @@ os-check(){
         fi
 }
 
+lowercase(){
+	echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
+}
+
+distroProfile(){
+	OS=`lowercase \`uname\``
+	KERNEL=`uname -r`
+	MACH=`uname -m`
+
+	if [ "${OS}" == "windowsnt" ]; then
+		OS=windows
+	elif [ "${OS}" == "darwin" ]; then
+		OS=mac
+	else
+		OS=`uname`
+		if [ "${OS}" = "SunOS" ] ; then
+			OS=Solaris
+			ARCH=`uname -p`
+			OSSTR="${OS} ${REV}(${ARCH} `uname -v`)"
+		elif [ "${OS}" = "AIX" ] ; then
+			OSSTR="${OS} `oslevel` (`oslevel -r`)"
+		elif [ "${OS}" = "Linux" ] ; then
+			if [ -f /etc/redhat-release ] ; then
+				DistroBasedOn='RedHat'
+				DIST=`cat /etc/redhat-release |sed s/\ release.*//`
+				PSUEDONAME=`cat /etc/redhat-release | sed s/.*\(// | sed s/\)//`
+				REV=`cat /etc/redhat-release | sed s/.*release\ // | sed s/\ .*//`
+			elif [ -f /etc/SuSE-release ] ; then
+				DistroBasedOn='SuSe'
+				PSUEDONAME=`cat /etc/SuSE-release | tr "\n" ' '| sed s/VERSION.*//`
+				REV=`cat /etc/SuSE-release | tr "\n" ' ' | sed s/.*=\ //`
+			elif [ -f /etc/mandrake-release ] ; then
+				DistroBasedOn='Mandrake'
+				PSUEDONAME=`cat /etc/mandrake-release | sed s/.*\(// | sed s/\)//`
+				REV=`cat /etc/mandrake-release | sed s/.*release\ // | sed s/\ .*//`
+			elif [ -f /etc/arch-release ] ; then
+				DistroBasedOn='Arch'
+				if [ -f /etc/lsb-release ] ; then
+			        	DIST=`cat /etc/lsb-release | grep '^DISTRIB_ID' | awk -F=  '{ print $2 }'`
+			                PSUEDONAME=`cat /etc/lsb-release | grep '^DISTRIB_CODENAME' | awk -F=  '{ print $2 }'`
+			                REV=`cat /etc/lsb-release | grep '^DISTRIB_RELEASE' | awk -F=  '{ print $2 }'`
+            			fi
+			elif [ -f /etc/debian_version ] ; then
+				DistroBasedOn='Debian'
+				if [ -f /etc/lsb-release ] ; then
+			        	DIST=`cat /etc/lsb-release | grep '^DISTRIB_ID' | awk -F=  '{ print $2 }'`
+			                PSUEDONAME=`cat /etc/lsb-release | grep '^DISTRIB_CODENAME' | awk -F=  '{ print $2 }'`
+			                REV=`cat /etc/lsb-release | grep '^DISTRIB_RELEASE' | awk -F=  '{ print $2 }'`
+            			fi
+			fi
+			if [ -f /etc/UnitedLinux-release ] ; then
+				DIST="${DIST}[`cat /etc/UnitedLinux-release | tr "\n" ' ' | sed s/VERSION.*//`]"
+			fi
+			OS=`lowercase $OS`
+			DistroBasedOn=`lowercase $DistroBasedOn`
+		 	readonly OS
+		 	readonly DIST
+			readonly DistroBasedOn
+		 	readonly PSUEDONAME
+		 	readonly REV
+		 	readonly KERNEL
+		 	readonly MACH
+		fi
+
+	fi
+}
+
 software-check(){
     msg_notification "checking for required software"
     for cli in python curl git sudo; do
@@ -79,22 +146,49 @@ install-ansible(){
     msg_good "ansible is installed"
 }
 
+clean(){
+    msg_notification "cleaning up any downloaded Ansible files"
+    if [ -d "${HOME}/.ansible/" ]; then
+        rm -rf ${HOME}/.ansible/
+    fi
+    msg_notification "removing installed software: Ansible, pip3"
+    pip3 freeze --user | xargs pip3 uninstall -y ansible
+}
+
+
 run-ansible(){
     msg_status "handing off to ansible!"
     cd ansible
     ansible-galaxy collection install devsec.hardening 
     ansible-galaxy role install thorian93.upgrade
     ansible-playbook -i inventory -c netconf --become-method sudo --become-user root main.yml
-    ansible-playbook -i inventory -c netconf --become-method sudo --become-user root update.yml
+    # If Arch Linux based, run pacman to upgrade because thorian93.upgrade fails on Arch
+    if [ ${DistroBasedOn} == "arch" ]; then
+	sudo pacman -Syu
+    else 
+        ansible-playbook -i inventory -c netconf --become-method sudo --become-user root update.yml
+    fi
 }
+
+the-end(){
+    msg_status "completed! Recommended: rerun with clean arguement and then reboot to use latest kernel/software"
+}
+
+# new clean routine
+if [[ ${1} == "clean" ]]; then
+    clean
+    exit 0
+fi
 
 main(){
     kick-off;
     os-check;
+    distroProfile;
     software-check;
     software-check-pip;
     install-ansible;
     run-ansible;
+    the-end;
 }
 
 main;

@@ -2,16 +2,21 @@
 
 # base-secure
 
-Base-secure uses [Ansible](https://www.ansible.com) to automate the setup of new hosts with a fully updated, hardened OS, with hardened SSH settings.
+Base-secure uses [Ansible](https://www.ansible.com) to automate the hardening of the Linux OS, and its SSH configuration using code from the [DevSec Hardening Framework](https://dev-sec.io/). I highly recommend you install this on a fresh Linux host, then reboot, and use that as your new base for new servers; be it a VMs, an AMIs, or a bare metal setup.
 
-__NOTICE__ if you don't have Ansible installed, base-secure will do that first via Pip, automatically!
+## Features
 
-All pip3 installed packages (including Ansible) installed to user installation
+* Hardens the Linux OS and its SSH configuration using the excellent [DevSec Hardening Framework](https://dev-sec.io/). (NOTICE: currently using their default setttings you could lock this down further if you want)
+* Does a full system upgrade of all installed components 
+* Installs Ansible automatically if it's not installed (recommended)
+* All pip installed packages (including Ansible) installed to user installation
+* Clean function removes all downloaded Ansible files and uninstalls all pip installed packages, leaving nothing behind
 
 ## Requirements
 
-* Linux
-* python3
+* Linux (tested on Debian GNU\Linux, Arch Linux (EndeavourOS))
+* python3 (tested with v3.9)
+* curl
 * sudo
 * git
 
@@ -24,15 +29,19 @@ git clone https://github.com/philcryer/base-secure.git
 cd base-secure
 ```
 
-Run it:
+Run it
 
 ```
 ./base-secure
 ```
 
-## TODO
+## Cleanup
 
-More details here
+As with any server, you shouldn't have extranious things installed, so this script cleans up after itself and removes all downloaded Ansible files and uninstalls all pip packages (yep, even pip itself, if the script installed it) To do this, just run `base-secure` with the clean arguement:
+
+```
+./base-secure clean
+```
 
 ## License 
 

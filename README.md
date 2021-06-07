@@ -2,11 +2,15 @@
 
 # base-secure
 
-Base-secure uses [Ansible](https://www.ansible.com) to automate the hardening of the Linux OS, and its SSH configuration using code from the [DevSec Hardening Framework](https://dev-sec.io/). I highly recommend you install this on a fresh Linux host, then reboot, and use that as your new base for new servers; be it a VMs, an AMIs, or a bare metal setup.
+Base-secure uses [Ansible](https://www.ansible.com) to automate the hardening of the Linux OS, and its SSH configuration using code from the [DevSec Hardening Framework](https://dev-sec.io/). I highly recommend you install this on a fresh Linux host, then reboot, and use that as your new base for new servers; be it a virtual machine, an Amazon Machine Image (AMI), or bare metal.
+
+## Rational
+
+TL;DR I get upset when I find Linux servers that are not setup well. This aims to fix that.
 
 ## Features
 
-* Hardens the Linux OS and its SSH configuration using the excellent [DevSec Hardening Framework](https://dev-sec.io/). (NOTICE: currently using their default setttings you could lock this down further if you want)
+* Hardens the Linux OS and its SSH configuration using the excellent [DevSec Hardening Framework](https://dev-sec.io/). (NOTICE: currently using their default setttings you could lock this down further)
 * Does a full system upgrade of all installed components 
 * Installs Ansible automatically if it's not installed (recommended)
 * All pip installed packages (including Ansible) installed to user installation

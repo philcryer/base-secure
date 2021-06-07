@@ -10,7 +10,7 @@ TL;DR I get upset when I find Linux servers that are not setup well. This aims t
 
 ## Features
 
-* Hardens the Linux OS and its SSH configuration using the excellent [DevSec Hardening Framework](https://dev-sec.io/). (NOTICE: currently using their default setttings you could lock this down further)
+* Hardens the Linux OS and its SSH configuration using the excellent [DevSec Hardening Framework](https://dev-sec.io/). (NOTICE: currently using their default setttings, you could lock this down further)
 * Does a full system upgrade of all installed components 
 * Installs Ansible automatically if it's not installed (recommended)
 * All pip installed packages (including Ansible) installed to user installation

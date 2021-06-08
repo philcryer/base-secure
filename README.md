@@ -2,7 +2,7 @@
 
 # base-secure
 
-Base-secure uses [Ansible](https://www.ansible.com) to automate the hardening of the Linux OS, and its SSH configuration using code from the [DevSec Hardening Framework](https://dev-sec.io/), which maintains a set of open source templates originally developed at [Deutsche Telekom](https://www.telekom.de/start). I highly recommend you install this on a fresh Linux host, then reboot, and use that as your new base for new servers; be it a virtual machine, an Amazon Machine Image (AMI), or bare metal.
+Base-secure uses [Ansible](https://www.ansible.com) to automate the hardening of the Linux OS, and its SSH configuration using code from the [DevSec Hardening Framework](https://dev-sec.io/), which maintains a set of open source templates originally developed at [Deutsche Telekom](https://www.telekom.de/start). The goal of that project is to cover most of the required hardening checks based on multiple standards; including [Ubuntu Security Features](https://wiki.ubuntu.com/Security/Features), [NSA Guide to Secure Configuration](https://apps.nsa.gov/iaarchive/library/ia-guidance/security-configuration/), ArchLinux System Hardening and others. I highly recommend you install this on a fresh Linux host, then reboot, and use that as your new base for new servers; be it a virtual machine, an Amazon Machine Image (AMI), or bare metal.
 
 ## Rational
 

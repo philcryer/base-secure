@@ -10,8 +10,8 @@ TL;DR I get upset when I find Linux servers that are not setup well. This aims t
 
 ## Features
 
-* Hardens the Linux OS and its SSH configuration using the excellent [DevSec Hardening Framework](https://dev-sec.io/). (NOTICE: currently using their default setttings, you could lock this down further)
-* Does a full system upgrade of all installed components 
+* Hardens the Linux OS and its SSH configuration using the extensive [DevSec Hardening Framework](https://dev-sec.io/) Ansible Playbooks. (NOTICE: currently using their default setttings, you could lock this down further). These project regularly tests on Ubuntu, Debian, RHEL, CentOS, Oracle Linux, and OpenSuse
+* Does a full system upgrade of all installed components using the [thorian93.ansible-role-upgrade](https://github.com/thorian93/ansible-role-upgrade) Ansible playbook
 * Installs Ansible automatically if it's not installed (recommended)
 * All pip installed packages (including Ansible) installed to user installation
 * Clean function removes all downloaded Ansible files and uninstalls all pip installed packages, leaving nothing behind

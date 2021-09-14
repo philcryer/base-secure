@@ -113,7 +113,7 @@ distroProfile(){
 
 software-check(){
     msg_notification "checking for required software"
-    for cli in python curl git sudo; do
+    for cli in python3 curl git sudo; do
         if ! type "$cli" > /dev/null 2>&1; then
             msg_error "$cli is not installed - install that and try again"; exit 1
         fi

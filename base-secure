@@ -127,7 +127,7 @@ software-check-pip(){
         if ! type "$cli" > /dev/null 2>&1; then
             msg_error "$cli is not installed - attempting to install"
             curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-            python get-pip.py
+            python3 get-pip.py
             rm get-pip.py
         else
             msg_notification "checking for latest version of python pip3"

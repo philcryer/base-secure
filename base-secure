@@ -134,6 +134,7 @@ software-check-pip(){
             pip3 install --upgrade pip
         fi
   	done
+	export PATH=$PATH:~/.local/bin
     msg_good "python pip is installed"
 }
 
